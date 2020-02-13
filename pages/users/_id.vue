@@ -1,24 +1,58 @@
 <template>
-  <section class="section">
-    <div class="container">
-      <h2 class="title">{{ user.username }}'s details</h2>
-      <p>
-        <strong>Username:</strong>
-        {{ user.username }}
-      </p>
-      <p>
-        <strong>Role:</strong>
-        {{ user.role }}
-      </p>
-      <p>
-        <strong>Email:</strong>
-        {{ user.email }}
-      </p>
+  <div class="section">
+    <div class="container is-fluid">
+      <div class="columns">
+        <div class="column is-half is-offset-3">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-5by3">
+                <img
+                  src="https://bulma.io/images/placeholders/1280x960.png"
+                  alt="Placeholder image"
+                />
+              </figure>
+              <div class="card-content">
+                <div class="content">
+                  <table class="table is-striped is-fullwidth">
+                    <tbody>
+                      <tr v-if="user.first_name">
+                        <th>First Name</th>
+                        <td>{{ user.first_name }}</td>
+                      </tr>
+                      <tr v-if="user.last_name">
+                        <th>Last Name</th>
+                        <td>{{ user.first_name }}</td>
+                      </tr>
+                      <tr v-if="user.email">
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                      </tr>
+                      <tr v-if="user.description">
+                        <th>Description</th>
+                        <td>{{ user.description }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <footer
+              v-if="loggedInUser.username === user.username"
+              class="card-footer"
+            >
+              <button class="button is-primary card-footer-item">Edit</button>
+              <button class="button is-danger card-footer-item">Delete</button>
+            </footer>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   middleware: 'auth',
   data() {
@@ -26,13 +60,16 @@ export default {
       user: Object
     }
   },
+  computed: {
+    ...mapGetters(['loggedInUser'])
+  },
   created() {
     this.getUser()
   },
   methods: {
     async getUser() {
+      const id = this.$route.params.id
       try {
-        const id = this.$route.params.id
         await this.$axios.get(`auth/users/${id}/`).then((response) => {
           if (response.status === 200) {
             this.user = response.data

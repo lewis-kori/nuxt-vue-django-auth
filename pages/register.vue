@@ -58,13 +58,13 @@
             <div class="field">
               <label class="label">Role</label>
               <div class="control">
-                <input
-                  v-model="role"
-                  type="text"
-                  class="input"
-                  name="role"
-                  required
-                />
+                <div class="select is-fullwidth is-primary is-rounded">
+                  <select v-model="role">
+                    <option value="">Select Account type</option>
+                    <option value="ED">Editor</option>
+                    <option value="WR">Writer</option>
+                  </select>
+                </div>
               </div>
             </div>
             <div class="field">
@@ -148,7 +148,6 @@ export default {
             password: this.password
           }
         })
-
         this.$router.push('/')
       } catch (e) {
         this.error = e.response.data.detail
