@@ -3,11 +3,17 @@
     <div class="container is-fluid">
       <div class="columns">
         <div class="column is-half is-offset-3">
-          <div class="card">
+          <div class="box card">
             <div class="card-image">
               <figure class="image is-5by3">
                 <img
-                  src="https://bulma.io/images/placeholders/1280x960.png"
+                  v-if="user.image"
+                  :src="user.image"
+                  :alt="user.username + '_photo'"
+                />
+                <img
+                  v-else
+                  src="https://picsum.photos/500/500"
                   alt="Placeholder image"
                 />
               </figure>
