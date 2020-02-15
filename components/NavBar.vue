@@ -22,7 +22,12 @@
               <nuxt-link class="navbar-item" to="/profile"
                 >My Profile</nuxt-link
               >
-              <nuxt-link class="navbar-item" to="/users">All users</nuxt-link>
+              <nuxt-link
+                v-if="loggedInUser.is_superuser"
+                class="navbar-item"
+                to="/users"
+                >All users</nuxt-link
+              >
               <hr class="navbar-divider" />
               <a @click="logout" class="navbar-item">Logout</a>
             </div>
