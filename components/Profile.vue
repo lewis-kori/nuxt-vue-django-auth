@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-one-quarter">
+  <div class="column is-quarter-desktop">
     <div class="box card">
       <nuxt-link :to="{ name: 'users-id', params: { id: user.id } }">
         <div class="card-image">
